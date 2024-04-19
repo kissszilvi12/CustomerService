@@ -39,7 +39,6 @@ public class Customer {
     private String motherName;
 
     @NotNull
-    @NotBlank
     @Past
     private LocalDate dateOfBirth;
 
