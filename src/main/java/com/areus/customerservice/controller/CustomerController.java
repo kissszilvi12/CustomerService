@@ -19,4 +19,9 @@ public class CustomerController {
     public List<Customer> getCustomersBetweenAge() {
         return service.findBetweenAges();
     }
+
+    @GetMapping("/average-age")
+    public Double getAvgAge() {
+        return service.getAverageAge();
+    }
 }
