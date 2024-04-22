@@ -1,10 +1,9 @@
 package com.areus.customerservice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,9 +24,13 @@ public class Document {
 
     @Column(length = 15)
     @NotBlank
-    private String number;
+    private String doc_number;
 
     @NotBlank
     @FutureOrPresent
     private LocalDate expirationDate;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;
 }
