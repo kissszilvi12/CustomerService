@@ -4,11 +4,13 @@ import com.areus.customerservice.model.Customer;
 import com.areus.customerservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository repository;
@@ -19,10 +21,10 @@ public class CustomerService {
      * and filters the customers based on their date of birth falling between these dates.
      */
     public List<Customer> findBetweenAges() {
-        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);    // Calculate date for 18 years ago
-        LocalDate fortyYearsAgo = LocalDate.now().minusYears(40);       // Calculate date for 40 years ago
+        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18).plusDays(1);    // Calculate date for 18 years ago
+        LocalDate fortyYearsAgo = LocalDate.now().minusYears(40).minusDays(1);       // Calculate date for 40 years ago
         return repository.findAll().stream()
-                .filter(customer -> customer.getDateOfBirth().isBefore(eighteenYearsAgo))
+                .filter(customer -> (customer.getDateOfBirth().isBefore(eighteenYearsAgo) ))
                 .filter(customer -> customer.getDateOfBirth().isAfter(fortyYearsAgo))
                 .toList();
     }
@@ -37,4 +39,7 @@ public class CustomerService {
     }
 
 
+    public void create(Customer customer) {
+        repository.save(customer);
+    }
 }

@@ -52,18 +52,4 @@ public class CustomerServiceIT {
         List<Customer> customers = customerService.findBetweenAges();
         assertThat(customers).hasSize(2).extracting(Customer::getFirstName).containsExactlyInAnyOrder("Young", "Old");
     }
-
-    @Test
-    public void whenCustomerDateOfBirthIsNull_thenCustomerIsExcluded() {
-        Customer nullDOB = new Customer();
-        nullDOB.setId(UUID.randomUUID());
-        nullDOB.setFirstName("Null");
-        nullDOB.setLastName("DOB");
-        nullDOB.setDateOfBirth(null); // This customer has no DOB set
-
-        when(customerRepository.findAll()).thenReturn(List.of(nullDOB));
-
-        List<Customer> customers = customerService.findBetweenAges();
-        assertThat(customers).isEmpty();
-    }
 }

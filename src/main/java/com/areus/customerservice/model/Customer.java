@@ -1,5 +1,7 @@
 package com.areus.customerservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,41 +21,49 @@ import java.util.UUID;
 public class Customer {
     @Id
     @NotNull
+    @JsonProperty("id")
     private UUID id;
 
     @Column(length = 100)
-    @NotNull @NotBlank
+    @NotBlank
+    @JsonProperty("first_name")
     private String firstName;
 
     @Column(length = 100)
-    @NotNull
     @NotBlank
+    @JsonProperty("last_name")
     private String lastName;
 
-    @NotNull
     @NotBlank
+    @JsonProperty("birth_name")
     private String birthName;
 
-    @NotNull
     @NotBlank
+    @JsonProperty("mother_name")
     private String motherName;
 
     @NotNull
     @Past
+    @JsonProperty("date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @Column(length = 100)
-    @NotNull
     @NotBlank
+    @JsonProperty("nationality")
     private String nationality;
 
     @Column(length = 20)
-    @NotNull
     @NotBlank
+    @JsonProperty("phone")
     private String phone;
 
-    @Email
-    @NotNull
     @NotBlank
+    @JsonProperty("address")
+    private String address;
+
+    @Email
+    @NotBlank
+    @JsonProperty("email")
     private String email;
 }
