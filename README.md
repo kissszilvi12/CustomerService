@@ -1,12 +1,8 @@
-## Overview
-
-This is a Customer Service application built using Spring Boot. It is designed to manage customer data with functionalities to create, read, update, and delete customer information. The application uses Oracle Database for data storage and includes basic security configurations.
-
 ## Prerequisites
 
-   - Java 17 or higher
-   - Maven 3.6.0 or higher
-   - Docker (for running Oracle Database in a container)
+- Java 17 or higher
+- Maven 3.6.0 or higher
+- Docker (for running Oracle Database in a container)
 
 ## Setup and Installation
 
@@ -19,18 +15,22 @@ This is a Customer Service application built using Spring Boot. It is designed t
 
 2. **Run Oracle Database in Docker:**
 
+    - **Log in to Oracle Container Registry:**
+
+        ```bash
+        docker login container-registry.oracle.com
+        ```
+
     - **Pull the Oracle Database Docker image:**
 
         ```bash
-        docker pull store/oracle/database-enterprise:12.2.0.1
+        docker pull container-registry.oracle.com/database/enterprise:latest
         ```
 
     - **Run the Oracle Database container:**
 
         ```bash
-        docker run -d -p 1521:1521 -p 5500:5500 --name oracledb \
-        -e ORACLE_PWD=<your-password> \
-        store/oracle/database-enterprise:12.2.0.1
+        docker run -d -p 1521:1521 -p 5500:5500 --name oracledb -e ORACLE_PWD=oracle container-registry.oracle.com/database/enterprise:latest
         ```
 
     - **Verify the Oracle Database container is running:**
@@ -39,13 +39,26 @@ This is a Customer Service application built using Spring Boot. It is designed t
         docker ps
         ```
 
-3. **Build the project:**
+3. **Configure the database:**
+   
+   Ensure that your Oracle Database is running and the connection details in the `application.properties` file are correct:
+   
+    ```properties
+    spring.datasource.url=jdbc:oracle:thin:@localhost:1521/ORCLCDB
+    spring.datasource.username=system
+    spring.datasource.password=oracle
+    spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+    spring.jpa.properties.hibernate.hbm2ddl.auto=update
+    spring.jpa.hibernate.ddl-auto=create-drop
+    ```
+
+4. **Build the project:**
 
     ```bash
     mvn clean install
     ```
 
-4. **Run the application:**
+5. **Run the application:**
 
     ```bash
     mvn spring-boot:run
@@ -54,3 +67,4 @@ This is a Customer Service application built using Spring Boot. It is designed t
 ## Usage
 
 - Access the application at `http://localhost:8080`.
+- Use Postman or any other API client to test the endpoints.
