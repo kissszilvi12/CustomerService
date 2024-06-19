@@ -6,16 +6,9 @@
 
 ## Setup and Installation
 
-1. **Clone the repository:**
+1. **Run Oracle Database in Docker:**
 
-    ```bash
-    git clone <repository-url>
-    cd <repository-directory>
-    ```
-
-2. **Run Oracle Database in Docker:**
-
-    - **Log in to Oracle Container Registry:**
+    - **Log in with your oracle account to Oracle Container Registry:**
 
         ```bash
         docker login container-registry.oracle.com
@@ -39,26 +32,20 @@
         docker ps
         ```
 
-3. **Configure the database:**
-   
-   Ensure that your Oracle Database is running and the connection details in the `application.properties` file are correct:
-   
-    ```properties
-    spring.datasource.url=jdbc:oracle:thin:@localhost:1521/ORCLCDB
-    spring.datasource.username=system
-    spring.datasource.password=oracle
-    spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
-    spring.jpa.properties.hibernate.hbm2ddl.auto=update
-    spring.jpa.hibernate.ddl-auto=create-drop
+2. **Clone the repository:**
+
+    ```bash
+    git clone [<repository-url>](https://github.com/kissszilvi12/CustomerService.git)
+    cd CustomerService
     ```
 
-4. **Build the project:**
+3. **Build the project:**
 
     ```bash
     mvn clean install
     ```
 
-5. **Run the application:**
+4. **Run the application:**
 
     ```bash
     mvn spring-boot:run
@@ -67,4 +54,3 @@
 ## Usage
 
 - Access the application at `http://localhost:8080`.
-- Use Postman or any other API client to test the endpoints.
